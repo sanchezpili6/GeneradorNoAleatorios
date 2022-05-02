@@ -1,4 +1,5 @@
 import math
+from itertools import combinations
 
 
 def generaAleatorios(generador, lista_generador, funcion, lista_funcion, n, m):
@@ -43,10 +44,32 @@ def generaAleatorios(generador, lista_generador, funcion, lista_funcion, n, m):
 
 
 def exponential_distribution(x, mu):
-    p = 1 - math.exp((-x)/mu)
-    return p
+    distribution = 1 - math.exp((-x) / mu)
+    return distribution
 
 
+def normal_distribution(media, variation, x):
+    expoential = -((x - media) ^ 2) / 2 * variation
+    distribution = (1 / math.sqrt(2 * math.pi * variation)) * math.exp(expoential)
+    return distribution
+
+
+def poisson_distribution(x, events_per_unit):
+    distribution = (math.exp(-events_per_unit) * events_per_unit ^ x) / math.factorial(x)
+    return distribution
+
+
+def binomial_distribution(x, p, n):
+    distribution = combination(n, x) * p ^ x * (1 - p) ^ (n - x)
+    return distribution
+
+
+def combination(n, r):
+    c = math.factorial(n) / math.factorial(r) * math.factorial(n - r)
+    return c
+
+
+print(normal_distribution(42,40,1.5))
 generador = "mixto"
 lista_generador = [[15, 8, 16, 10], [13, 50, 17, 64], [7, 5, 24, 32], [3, 5, 21, 100]]
 funcion = "uniforme"
