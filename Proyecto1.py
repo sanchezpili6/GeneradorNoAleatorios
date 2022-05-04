@@ -19,8 +19,6 @@ def generaAleatorios(generador, lista_generador, funcion, lista_funcion, n, bars
     else:
         return "Por favor elige entre mixto o multiplicativo"
 
-    print("C: " + str(c) + " M: " + str(m))
-
     if funcion == 'exponencial':
         exponential_distribution(lista_funcion)
     elif funcion == 'normal':
@@ -37,9 +35,10 @@ def generaAleatorios(generador, lista_generador, funcion, lista_funcion, n, bars
 
 
 def mixed_generator(x0, m, a, c, n):
-    no_aleatorios = [x0]
+    no_aleatorios = []
     xn = x0
     m_generador = m
+    print("C: " + str(c) + " M: " + str(m))
     for i in range(n):
         xn = (a * xn + c) % m
         no_aleatorio = xn / m_generador
@@ -49,9 +48,10 @@ def mixed_generator(x0, m, a, c, n):
 
 
 def multiplicative_generator(x0, m, a, n):
-    no_aleatorios = [x0]
+    no_aleatorios = []
     xn = x0
     m_generador = m - 1
+    print(" M: " + str(m))
     for i in range(n):
         xn = (a * xn) % m
         no_aleatorio = xn / m_generador
@@ -72,7 +72,7 @@ def exponential_distribution(function_list):
     x = function_list[0]
     mean = function_list[1]
     new_random_numbers = []
-    r = multiplicative_generator(47, 2, 3, 10)
+    r = multiplicative_generator(5, 10000, 211, 1000)
     for number in r:
         distribution = -1/mean * math.log(number)
         new_random_numbers.append(distribution)
@@ -126,7 +126,8 @@ bars_m = 50
 
 #print(generaAleatorios(generador_m, lista_generador_m[4], funcion_m, lista_funcion_m, n_m, bars_m))
 
-print(multiplicative_generator(47, 2, 3, 100))
-print(exponential_distribution([5,2]))
+print(multiplicative_generator(5, 1000, 211, 10))
+#print(mixed_generator(7, 5, 4, 3, 10))
+#print(exponential_distribution([5,2]))
 plt.hist(x=exponential_distribution([5, 2]), bins='auto', color='#0504aa', alpha=0.7, rwidth=0.85)
 plt.show()
